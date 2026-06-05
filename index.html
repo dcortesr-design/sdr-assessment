@@ -1,451 +1,451 @@
 <!DOCTYPE html>
-<!-- saved from url=(0072)file:///C:/Users/DiegoCortes/Downloads/SDR_Assessment_Interactive_1.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SDR Skills Self-Assessment</title>
-<script src="./SDR Skills Self-Assessment V01_files/xlsx.full.min.js.download"></script>
+<title>SDR Skills Map</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --teal: #1D9E75; --teal-light: #E1F5EE; --teal-border: #5DCAA5;
-    --blue-bg: #EEF4FB; --amber-bg: #FDF3E1; --green-bg: #EFF7E6;
-    --blue-text: #185FA5; --amber-text: #854F0B; --green-text: #3B6D11;
-    --text: #1a1a1a; --text-muted: #5a5a5a; --border: #E0DED8;
-    --bg: #F7F6F2; --card: #ffffff; --radius: 12px; --radius-sm: 8px;
-  }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-  .page { max-width: 680px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
-  .site-header { text-align: center; padding: 2.5rem 1rem 2rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; background: white; }
-  .site-header .badge { display: inline-block; background: var(--teal-light); color: var(--teal); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px; }
-  .site-header h1 { font-size: 26px; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.02em; }
-  .site-header p { font-size: 15px; color: var(--text-muted); max-width: 480px; margin: 0 auto; line-height: 1.6; }
-  .name-field { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.5rem; }
-  .name-field label { display: block; font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
-  .name-field input { width: 100%; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; font-size: 15px; color: var(--text); background: var(--bg); outline: none; transition: border-color 0.15s; }
-  .name-field input:focus { border-color: var(--teal); }
-  .progress-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem; }
-  .progress-track { flex: 1; height: 5px; background: var(--border); border-radius: 999px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--teal); border-radius: 999px; transition: width 0.35s ease; }
-  .progress-text { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
-  .skill-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1rem; }
-  .skill-num { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--teal); margin-bottom: 4px; }
-  .skill-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 1.5rem; line-height: 1.3; }
-  .dimension { border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 10px; }
-  .dimension:last-child { margin-bottom: 0; }
-  .dimension.hard { background: var(--blue-bg); }
-  .dimension.know { background: var(--amber-bg); }
-  .dimension.soft { background: var(--green-bg); }
-  .dim-top { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
-  .dim-icon { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-  .hard .dim-icon { background: #185FA520; color: var(--blue-text); }
-  .know .dim-icon { background: #854F0B20; color: var(--amber-text); }
-  .soft .dim-icon { background: #3B6D1120; color: var(--green-text); }
-  .dim-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 2px; }
-  .hard .dim-label { color: var(--blue-text); }
-  .know .dim-label { color: var(--amber-text); }
-  .soft .dim-label { color: var(--green-text); }
-  .dim-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
-  .conf-row { display: flex; gap: 8px; }
-  .conf-btn { flex: 1; padding: 9px 6px; border-radius: var(--radius-sm); border: 1.5px solid transparent; background: white; cursor: pointer; font-size: 12px; font-weight: 600; text-align: center; transition: all 0.15s ease; line-height: 1.3; }
-  .conf-btn .icon { font-size: 16px; display: block; margin-bottom: 3px; }
-  .conf-btn.not-confident { border-color: #F0959540; color: #A32D2D; }
-  .conf-btn.not-confident:hover, .conf-btn.not-confident.selected { background: #FCEBEB; border-color: #E24B4A; color: #A32D2D; }
-  .conf-btn.confident { border-color: #FAC77540; color: #854F0B; }
-  .conf-btn.confident:hover, .conf-btn.confident.selected { background: #FAEEDA; border-color: #EF9F27; color: #854F0B; }
-  .conf-btn.very-confident { border-color: #9FE1CB40; color: #0F6E56; }
-  .conf-btn.very-confident:hover, .conf-btn.very-confident.selected { background: #E1F5EE; border-color: #1D9E75; color: #0F6E56; }
-  .nav-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 1.25rem; }
-  .nav-btn { padding: 10px 20px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: white; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--text); transition: all 0.15s; }
-  .nav-btn:hover { background: var(--bg); }
-  .nav-btn:disabled { opacity: 0.35; cursor: default; }
-  .nav-btn.primary { background: var(--teal); color: white; border-color: var(--teal); }
-  .nav-btn.primary:hover { opacity: 0.88; }
-  .step-txt { font-size: 13px; color: var(--text-muted); }
-  #results { display: none; }
-  .result-hero { background: var(--teal-light); border: 1px solid var(--teal-border); border-radius: var(--radius); padding: 1.5rem; text-align: center; margin-bottom: 1.5rem; }
-  .result-hero h2 { font-size: 20px; font-weight: 700; color: var(--teal); margin-bottom: 4px; }
-  .result-hero p { font-size: 14px; color: #0F6E56; }
-  .results-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.5rem; }
-  .result-metric { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center; }
-  .result-metric .rlabel { font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; margin-bottom: 6px; }
-  .result-metric .rval { font-size: 18px; font-weight: 700; }
-  .result-metric.hard .rlabel, .result-metric.hard .rval { color: var(--blue-text); }
-  .result-metric.know .rlabel, .result-metric.know .rval { color: var(--amber-text); }
-  .result-metric.soft .rlabel, .result-metric.soft .rval { color: var(--green-text); }
-  .section-head { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin: 1.5rem 0 0.75rem; }
-  .result-row { background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px; margin-bottom: 8px; }
-  .result-row .rskill { font-size: 13px; font-weight: 600; margin-bottom: 6px; }
-  .rdims { display: flex; gap: 6px; flex-wrap: wrap; }
-  .conf-pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
-  .pill-nc { background: #FCEBEB; color: #A32D2D; }
-  .pill-c  { background: #FAEEDA; color: #854F0B; }
-  .pill-vc { background: #E1F5EE; color: #0F6E56; }
-  .focus-card { background: #FCEBEB; border: 1px solid #F0959580; border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 8px; font-size: 13px; }
-  .focus-card strong { color: #A32D2D; }
-  .focus-card span { color: #791F1F; }
-  .action-row { display: flex; flex-direction: column; gap: 10px; margin-top: 1.5rem; }
-  .btn-submit { width: 100%; padding: 14px; background: var(--teal); border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 700; cursor: pointer; color: white; transition: opacity 0.15s; }
-  .btn-submit:hover { opacity: 0.88; }
-  .btn-submit:disabled { opacity: 0.5; cursor: default; }
-  .btn-excel { width: 100%; padding: 12px; background: white; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; cursor: pointer; color: var(--text); transition: background 0.15s; }
-  .btn-excel:hover { background: var(--bg); }
-  .btn-restart { width: 100%; padding: 10px; background: transparent; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; cursor: pointer; color: var(--text-muted); }
-  .submit-status { text-align: center; padding: 12px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 600; display: none; }
-  .submit-status.success { background: var(--teal-light); color: var(--teal); }
-  .submit-status.error { background: #FCEBEB; color: #A32D2D; }
-  .submit-note { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 6px; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal: #1D9E75; --teal-l: #E1F5EE; --teal-b: #5DCAA5;
+  --navy: #1B3A5C;
+  --amber-t: #854F0B; --amber-border: #FAC775; --amber-bg: #FDF3E1;
+  --green-t: #3B6D11;
+  --red-bg: #FCEBEB; --red-t: #A32D2D;
+  --blue-t: #185FA5;
+  --bg: #F4F3EF; --border: #E0DED8;
+  --text: #1a1a1a; --muted: #5a5a5a;
+  --g1: #F7F7F7; --g2: #F0F0F0; --g3: #E8E8E8;
+  --radius: 12px; --radius-sm: 8px;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.name-field-wrap { margin-top: 22px; }
+.name-field-wrap label { display: block; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.09em; margin-bottom: 8px; }
+.name-field-wrap input { width: 100%; max-width: 460px; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); border-radius: var(--radius-sm); padding: 13px 18px; font-size: 17px; font-weight: 600; color: white; outline: none; transition: border-color 0.15s, background 0.15s; }
+.name-field-wrap input::placeholder { color: rgba(255,255,255,0.35); font-weight: 400; }
+.name-field-wrap input:focus { border-color: var(--teal-b); background: rgba(255,255,255,0.2); }
+.card-next-wrap { padding: 14px 20px 18px; display: flex; justify-content: flex-end; border-top: 1px solid var(--border); background: white; }
+.btn-next { background: var(--navy); color: white; border: none; padding: 10px 24px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.15s; display: flex; align-items: center; gap: 7px; }
+.btn-next:hover { opacity: 0.85; }
+.btn-next:disabled { opacity: 0.35; cursor: default; }
+.topbar { background: #132C47; color: white; padding: 0 2rem; height: 52px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+.topbar-title { font-size: 16px; font-weight: 700; }
+.topbar-sub { font-size: 12px; opacity: 0.5; margin-top: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.btn-dl { background: var(--teal); color: white; border: none; padding: 9px 20px; border-radius: 999px; font-size: 14px; font-weight: 700; cursor: pointer; transition: opacity 0.15s; white-space: nowrap; }
+.btn-dl:hover { opacity: 0.85; }
+.btn-dl:disabled { opacity: 0.35; cursor: default; }
+.main { max-width: 880px; margin: 0 auto; padding: 1.5rem 1.25rem 5rem; }
+.intro-card { background: linear-gradient(135deg, #1B3A5C 0%, #0F6E56 100%); border-radius: var(--radius); padding: 1.5rem 1.75rem; margin-bottom: 1.5rem; color: white; }
+.intro-card p { font-size: 14px; opacity: 0.85; line-height: 1.65; max-width: 640px; }
+.skill-card { background: white; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; overflow: hidden; transition: box-shadow 0.2s; }
+.skill-card:hover { box-shadow: 0 2px 14px rgba(0,0,0,0.08); }
+.skill-header { display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; border-bottom: 1px solid transparent; transition: border-color 0.15s; user-select: none; }
+.skill-card.open .skill-header { border-bottom-color: var(--border); }
+.skill-num { width: 30px; height: 30px; border-radius: 50%; background: var(--teal-l); color: var(--teal); font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.skill-name { font-size: 15px; font-weight: 700; flex: 1; color: var(--navy); }
+.header-badges { display: flex; gap: 5px; align-items: center; }
+.hbadge { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+.hbadge.unset { background: var(--bg); color: var(--muted); border: 1px dashed var(--border); }
+.hbadge.vc { background: var(--teal-l); color: var(--teal); }
+.hbadge.c  { background: #FAEEDA; color: var(--amber-t); }
+.hbadge.nc { background: var(--red-bg); color: var(--red-t); }
+.chevron { font-size: 11px; color: var(--muted); transition: transform 0.2s; margin-left: 2px; flex-shrink: 0; }
+.skill-card.open .chevron { transform: rotate(180deg); }
+.skill-body { display: none; }
+.skill-card.open .skill-body { display: block; }
+.dim-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+.dim-col { padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; border-right: 1px solid var(--border); }
+.dim-col:last-child { border-right: none; }
+.dim-col.exec { background: var(--g1); }
+.dim-col.know { background: var(--g2); }
+.dim-col.soft { background: var(--g3); }
+.dim-col-header { display: flex; align-items: center; gap: 7px; }
+.dim-col-icon { font-size: 17px; }
+.dim-col-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy); }
+.dim-col-sub { font-size: 11px; font-weight: 500; color: var(--muted); margin-top: 1px; }
+.dim-desc { font-size: 14px; color: #111111; line-height: 1.62; flex: 1; }
+.dim-select-wrap { position: relative; margin-top: auto; }
+.dim-select { width: 100%; padding: 9px 36px 9px 12px; border-radius: var(--radius-sm); border: 1.5px solid var(--border); background: white; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer; appearance: none; -webkit-appearance: none; outline: none; transition: border-color 0.15s, color 0.15s, background 0.15s; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a5a5a' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+.dim-select:focus { border-color: var(--teal); }
+.dim-select.sel-vc { border-color: var(--teal); background-color: var(--teal-l); color: var(--teal); font-weight: 700; }
+.dim-select.sel-c  { border-color: var(--amber-border); background-color: #FAEEDA; color: var(--amber-t); font-weight: 700; }
+.dim-select.sel-nc { border-color: #F09595; background-color: var(--red-bg); color: var(--red-t); font-weight: 700; }
+.summary-panel { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; display: none; }
+.summary-panel.visible { display: block; }
+.summary-panel h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+.summary-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.sum-metric { text-align: center; border-radius: var(--radius-sm); padding: 10px 6px; }
+.sum-metric.exec { background: #EEF4FB; }
+.sum-metric.know { background: #FDF3E1; }
+.sum-metric.soft { background: #EFF7E6; }
+.sum-lbl { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.sum-val { font-size: 16px; font-weight: 800; }
+.sum-metric.exec .sum-lbl, .sum-metric.exec .sum-val { color: var(--blue-t); }
+.sum-metric.know .sum-lbl, .sum-metric.know .sum-val { color: var(--amber-t); }
+.sum-metric.soft .sum-lbl, .sum-metric.soft .sum-val { color: var(--green-t); }
+.copy-notice { font-size: 13px; color: var(--teal); background: var(--teal-l); border: 1px solid var(--teal-b); border-radius: var(--radius-sm); padding: 8px 14px; text-align: center; margin-top: 10px; display: none; }
+.copy-notice.show { display: block; }
+@media (max-width: 620px) {
+  .dim-cols { grid-template-columns: 1fr; }
+  .dim-col { border-right: none; border-bottom: 1px solid var(--border); }
+  .dim-col:last-child { border-bottom: none; }
+  .header-badges { display: none; }
+  .topbar { padding: 0 1rem; }
+  .btn-next { font-size: 13px; padding: 9px 18px; }
+}
 </style>
 </head>
 <body>
 
-<header class="site-header">
-  <div class="badge">Sales Development</div>
-  <h1>SDR Skills Self-Assessment</h1>
-  <p>Rate your confidence across 10 core skill areas. Be honest — this helps identify where to focus your development.</p>
-</header>
-
-<div class="page">
-  <div class="name-field">
-    <label for="rep-name">Your name</label>
-    <input type="text" id="rep-name" placeholder="Enter your full name" autocomplete="off">
+<div class="topbar">
+  <div>
+    <div class="topbar-title">SDR Skills Map</div>
+    <div class="topbar-sub">Explore · Reflect · Download your results</div>
   </div>
+  <div class="topbar-right">
+    <span id="topbar-name" style="font-size:13px;opacity:0.55;"></span>
+    <button class="btn-dl" id="dl-btn" onclick="downloadExcel()" disabled>⬇ Download Excel</button>
+  </div>
+</div>
 
-  <div id="assessment">
-    <div class="progress-wrap">
-      <div class="progress-track"><div class="progress-fill" id="prog" style="width:10%"></div></div>
-      <span class="progress-text" id="prog-txt">Skill 1 of 10</span>
-    </div>
-    <div id="card">
-    <div class="skill-card">
-      <div class="skill-num">Skill 1 of 10</div>
-      <div class="skill-title">Prospecting &amp; pipeline creation</div>
-      <div class="dimension hard">
-      <div class="dim-top">
-        <div class="dim-icon">⚡</div>
-        <div>
-          <div class="dim-label">Execution — What I do</div>
-          <div class="dim-desc">I plan weekly prospecting blocks using ICP, industry focus, and trigger events to consistently create new qualified leads.</div>
-        </div>
-      </div>
-      <div class="conf-row">
-      <button class="conf-btn not-confident" onclick="pick(&#39;hard&#39;,&#39;not-confident&#39;)">
-        <span class="icon">🔴</span>Not confident
-      </button>
-      <button class="conf-btn confident" onclick="pick(&#39;hard&#39;,&#39;confident&#39;)">
-        <span class="icon">🟡</span>Confident
-      </button>
-      <button class="conf-btn very-confident" onclick="pick(&#39;hard&#39;,&#39;very-confident&#39;)">
-        <span class="icon">🟢</span>Very confident
-      </button></div>
-    </div><div class="dimension know">
-      <div class="dim-top">
-        <div class="dim-icon">📖</div>
-        <div>
-          <div class="dim-label">Knowledge — What I understand</div>
-          <div class="dim-desc">I understand our ICP, target verticals, and buying triggers, and know which tools and sources to use to find contacts.</div>
-        </div>
-      </div>
-      <div class="conf-row">
-      <button class="conf-btn not-confident" onclick="pick(&#39;know&#39;,&#39;not-confident&#39;)">
-        <span class="icon">🔴</span>Not confident
-      </button>
-      <button class="conf-btn confident" onclick="pick(&#39;know&#39;,&#39;confident&#39;)">
-        <span class="icon">🟡</span>Confident
-      </button>
-      <button class="conf-btn very-confident" onclick="pick(&#39;know&#39;,&#39;very-confident&#39;)">
-        <span class="icon">🟢</span>Very confident
-      </button></div>
-    </div><div class="dimension soft">
-      <div class="dim-top">
-        <div class="dim-icon">🤝</div>
-        <div>
-          <div class="dim-label">Soft skill — How I operate</div>
-          <div class="dim-desc">I stay creative and persistent in testing lists, messaging, and channels, and take ownership of my top-of-funnel results.</div>
-        </div>
-      </div>
-      <div class="conf-row">
-      <button class="conf-btn not-confident" onclick="pick(&#39;soft&#39;,&#39;not-confident&#39;)">
-        <span class="icon">🔴</span>Not confident
-      </button>
-      <button class="conf-btn confident" onclick="pick(&#39;soft&#39;,&#39;confident&#39;)">
-        <span class="icon">🟡</span>Confident
-      </button>
-      <button class="conf-btn very-confident" onclick="pick(&#39;soft&#39;,&#39;very-confident&#39;)">
-        <span class="icon">🟢</span>Very confident
-      </button></div>
-    </div>
-    </div></div>
-    <div class="nav-row">
-      <button class="nav-btn" id="prev" onclick="nav(-1)" disabled="">← Previous</button>
-      <span class="step-txt" id="step">1 / 10</span>
-      <button class="nav-btn primary" id="next" onclick="nav(1)">Next →</button>
+<div class="main">
+
+  <div class="intro-card">
+    <p>This is your space to reflect on where you shine and where you're growing. Go through each skill area, read the descriptions, and pick the option that feels most true for you right now. There are no wrong answers — this is about knowing yourself better so we can grow together.</p>
+    <div class="name-field-wrap">
+      <label for="sdr-name">Your name</label>
+      <input type="text" id="sdr-name" placeholder="Enter your full name…" autocomplete="off" oninput="updateName()">
     </div>
   </div>
 
-  <div id="results"></div>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;">
+    <div style="flex:1;height:6px;background:var(--border);border-radius:999px;overflow:hidden;">
+      <div id="prog-fill" style="height:100%;width:0%;background:var(--teal);border-radius:999px;transition:width 0.4s ease;"></div>
+    </div>
+    <span id="prog-text" style="font-size:13px;color:var(--muted);white-space:nowrap;">0 of 30 answered</span>
+  </div>
+
+  <div class="summary-panel" id="summary">
+    <h3>📊 Your picture so far</h3>
+    <div class="summary-grid">
+      <div class="sum-metric exec"><div class="sum-lbl">⚡ Execution</div><div class="sum-val" id="avg-exec">—</div></div>
+      <div class="sum-metric know"><div class="sum-lbl">📖 Knowledge</div><div class="sum-val" id="avg-know">—</div></div>
+      <div class="sum-metric soft"><div class="sum-lbl">🤝 Soft Skill</div><div class="sum-val" id="avg-soft">—</div></div>
+    </div>
+  </div>
+
+  <div id="skills-container"></div>
+
+  <div style="margin-top:2rem;padding:1.5rem;background:white;border:1px solid var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+    <div>
+      <div style="font-size:15px;font-weight:700;color:var(--navy);margin-bottom:3px;">Ready to submit?</div>
+      <div style="font-size:13px;color:var(--muted);">Download your completed scorecard as an Excel file and share it.</div>
+    </div>
+    <button class="btn-dl" id="dl-btn-bottom" onclick="downloadExcel()" style="border-radius:var(--radius-sm);padding:12px 28px;font-size:15px;opacity:1;">
+      ⬇ Download Excel
+    </button>
+  </div>
+
+  <div class="copy-notice" id="copy-notice">📋 A text summary was also copied to your clipboard — ready to paste anywhere!</div>
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-// CONFIGURATION — paste your Web App URL below
-// ─────────────────────────────────────────────
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbz5ka4AVlQ6IyKvUlHbCPLsOlO_4P1kwBOUTZHGhYaqYOFjQGibygK8UON0tFKlhpz3Qw/exec";
-// ─────────────────────────────────────────────
-
 const SKILLS = [
-  { name: "Prospecting & pipeline creation",
-    hard: "I plan weekly prospecting blocks using ICP, industry focus, and trigger events to consistently create new qualified leads.",
-    know: "I understand our ICP, target verticals, and buying triggers, and know which tools and sources to use to find contacts.",
-    soft: "I stay creative and persistent in testing lists, messaging, and channels, and take ownership of my top-of-funnel results." },
-  { name: "Outreach (cold calling / LinkedIn / email)",
-    hard: "I run structured multi-touch sequences with clear objectives to convert prospects into meetings or next steps.",
+  { name: "Prospecting & Pipeline Creation",
+    exec: "I plan weekly prospecting blocks using ICP, industry focus, and trigger events to consistently create new qualified leads for AEs.",
+    know: "I understand our ICP, target verticals, and buying triggers, and I know which tools and sources to use to find contacts.",
+    soft: "I stay creative and persistent in testing lists, messaging, and channels, and I take ownership for my top-of-funnel results." },
+  { name: "Outreach — Calls / LinkedIn / Email",
+    exec: "I run structured multi-touch sequences with clear objectives to convert prospects into meetings or next steps.",
     know: "I know our value proposition, outreach frameworks, and how to tailor talk tracks and templates for different personas.",
     soft: "I show confidence and resilience on every touch, staying organized and proactive even when response rates are low." },
-  { name: "Inbound lead qualification (MQLs)",
-    hard: "I respond quickly to inbound leads, run focused discovery, and decide if they meet MQL/SQL criteria before routing.",
+  { name: "Inbound Lead Qualification (MQLs)",
+    exec: "I respond quickly to inbound leads, run focused discovery, and decide if they meet our MQL/SQL criteria before routing or disqualifying.",
     know: "I understand MQL definitions, scoring rules, lifecycle stages, and fit criteria so I can categorize and prioritize leads correctly.",
     soft: "I am curious and responsive, asking clarifying questions and following up promptly so prospects feel supported." },
-  { name: "Discovery qualification for AE handoff",
-    hard: "I gather and confirm timing, needs, pains, and decision roles, and efficiently hand off the POC to an AE.",
+  { name: "Discovery Qualification for AE Handoff",
+    exec: "I conduct structured outreach to gather timing, needs, pains and decision roles; and use Breeze to hand off the POC to an AE.",
     know: "I know the qualification criteria, buyer roles, pain indicators, and timing signals AEs need to progress opportunities.",
-    soft: "I show clarity and ownership by leading the conversation, summarizing findings, and confirming next steps." },
-  { name: "Trade show lead capture & follow-up",
-    hard: "I capture complete, accurate lead information at events and execute planned follow-up sequences based on event strategy.",
-    know: "I understand our event strategy, ICP filters, qualification questions, and lead routing process so I know who to prioritize.",
+    soft: "I show clarity and ownership by leading conversations, summarizing findings, and confirming next steps." },
+  { name: "Trade Show Lead Capture & Follow-up",
+    exec: "I capture complete, accurate lead information at events and execute planned follow-up sequences based on event strategy.",
+    know: "I understand our event strategy, ICP filters, qualification questions, and lead routing so I know who to prioritize.",
     soft: "I bring energy and professional presence at events and stay organized to follow up quickly with qualified leads." },
-  { name: "Account research & personalization",
-    hard: "I research accounts and personas before outreach, using insights to personalize messages and talk tracks.",
+  { name: "Account Research & Personalization",
+    exec: "I research accounts and personas before outreach, using insights to personalize messages and talk tracks.",
     know: "I know which company data, industry trends, trigger events, and persona insights matter for our solution and where to find them.",
     soft: "I show curiosity and preparation, collaborating with teammates and asking for help when I need deeper context." },
-  { name: "CRM lead management & hygiene",
-    hard: "I keep lead records accurate and up to date (activities, notes, and statuses) according to our standards.",
+  { name: "CRM Lead Management & Hygiene",
+    exec: "I keep lead records accurate and up to date (activities, notes, and statuses) and thoroughly find/disqualify new contacts per our standards.",
     know: "I understand lead lifecycle stages, status definitions, note-taking standards, and ownership rules in our CRM.",
-    soft: "I demonstrate discipline and accountability by keeping my queue clean and following our rules of engagement." },
-  { name: "Objection handling (early stage)",
-    hard: "I handle early-stage objections using structured techniques to explore the real issue and reframe, qualify, or disqualify appropriately.",
-    know: "I know common prospect objections, how to distinguish real disqualification from pushback, and understand the Logistics & Transportation industry.",
-    soft: "I remain composed and adaptable under pressure, using confident but respectful language and demonstrating industry credibility." },
-  { name: "Team collaboration & knowledge sharing",
-    hard: "I actively share outreach approaches, messaging, objection handling techniques, and market insights to help improve team performance.",
-    know: "I understand team objectives, revenue process, communication standards, and how collaboration across SDRs, AEs, and Marketing drives success.",
-    soft: "I collaborate openly, contribute ideas, support teammates, and prioritize team success alongside my individual performance." },
-  { name: "Professional English communication",
-    hard: "I communicate clearly and professionally in English across calls, emails, LinkedIn messages, meetings, and internal discussions.",
-    know: "I understand business English conventions, sales terminology, and how language impacts the prospect and customer experience.",
-    soft: "I communicate with clarity and confidence, adapting my style to different audiences and situations." }
+    soft: "I demonstrate discipline, accountability, and time management by keeping my queue clean and following rules of engagement." },
+  { name: "Objection Handling (Early Stage)",
+    exec: "I handle early-stage objections using structured techniques to explore the real issue and reframe, qualify, or disqualify appropriately.",
+    know: "I know the most common objections, how to distinguish real disqualification from pushback, and I understand the L&T industry.",
+    soft: "I remain composed and adaptable under pressure, using confident but respectful language and demonstrating credibility." },
+  { name: "Team Collaboration & Knowledge Sharing",
+    exec: "I actively share outreach approaches, messaging, objection techniques, and market insights to help improve team performance.",
+    know: "I understand team objectives, revenue process, and how collaboration across SDRs, AEs, Marketing & Sales Ops drives success.",
+    soft: "I collaborate openly, contribute ideas, support teammates, and prioritize team success alongside individual performance." },
+  { name: "Professional English Communication",
+    exec: "I communicate clearly and professionally in English across calls, emails, LinkedIn, meetings, and internal discussions.",
+    know: "I understand business English, sales terminology, and how language impacts the prospect and customer experience.",
+    soft: "I communicate with clarity and confidence, adapting my style to different audiences and situations." },
 ];
 
 const DIMS = [
-  { key: "hard", cls: "hard", icon: "⚡", label: "Execution", sub: "What I do" },
-  { key: "know", cls: "know", icon: "📖", label: "Knowledge", sub: "What I understand" },
-  { key: "soft", cls: "soft", icon: "🤝", label: "Soft skill", sub: "How I operate" }
+  { key: 'exec', cls: 'exec', icon: '⚡', label: 'Execution', sub: 'What I do' },
+  { key: 'know', cls: 'know', icon: '📖', label: 'Knowledge', sub: 'What I know' },
+  { key: 'soft', cls: 'soft', icon: '🤝', label: 'Soft Skill', sub: 'How I operate' },
 ];
 
 const OPTS = [
-  { val: "not-confident", cls: "not-confident", icon: "🔴", label: "Not confident" },
-  { val: "confident",     cls: "confident",     icon: "🟡", label: "Confident" },
-  { val: "very-confident",cls: "very-confident",icon: "🟢", label: "Very confident" }
+  { val: 'vc', label: '🟢 Very confident' },
+  { val: 'c',  label: '🟡 Confident' },
+  { val: 'nc', label: '🔴 Not confident yet' },
 ];
 
-let cur = 0;
-let scores = Array.from({length: 10}, () => ({ hard: null, know: null, soft: null }));
+const scores = SKILLS.map(() => ({ exec: null, know: null, soft: null }));
 
-function render() {
-  const sk = SKILLS[cur], sc = scores[cur];
-  const dimsHtml = DIMS.map(d => {
-    const desc = d.key==='hard' ? sk.hard : d.key==='know' ? sk.know : sk.soft;
-    const btns = OPTS.map(o => `
-      <button class="conf-btn ${o.cls}${sc[d.key]===o.val?' selected':''}" onclick="pick('${d.key}','${o.val}')">
-        <span class="icon">${o.icon}</span>${o.label}
-      </button>`).join("");
-    return `<div class="dimension ${d.cls}">
-      <div class="dim-top">
-        <div class="dim-icon">${d.icon}</div>
+function getName() { return document.getElementById('sdr-name').value.trim(); }
+
+function optLabel(val) {
+  if (!val) return null;
+  return val === 'vc' ? 'Very confident' : val === 'c' ? 'Confident' : 'Not confident';
+}
+
+function badgeHtml(val) {
+  if (!val) return `<span class="hbadge unset">—</span>`;
+  if (val === 'vc') return `<span class="hbadge vc">🟢 Very confident</span>`;
+  if (val === 'c')  return `<span class="hbadge c">🟡 Confident</span>`;
+  return `<span class="hbadge nc">🔴 Not confident</span>`;
+}
+
+function selectClass(val) {
+  if (!val) return '';
+  return val === 'vc' ? 'sel-vc' : val === 'c' ? 'sel-c' : 'sel-nc';
+}
+
+function buildCard(si) {
+  const sk = SKILLS[si];
+  const card = document.createElement('div');
+  card.className = 'skill-card';
+  card.id = `card-${si}`;
+
+  const colsHtml = DIMS.map(d => `
+    <div class="dim-col ${d.cls}">
+      <div class="dim-col-header">
+        <span class="dim-col-icon">${d.icon}</span>
         <div>
-          <div class="dim-label">${d.label} — ${d.sub}</div>
-          <div class="dim-desc">${desc}</div>
+          <div class="dim-col-label">${d.label}</div>
+          <div class="dim-col-sub">${d.sub}</div>
         </div>
       </div>
-      <div class="conf-row">${btns}</div>
+      <div class="dim-desc">${sk[d.key]}</div>
+      <div class="dim-select-wrap">
+        <select class="dim-select" id="sel-${si}-${d.key}" onchange="rate(${si},'${d.key}',this.value)">
+          <option value="">…</option>
+          ${OPTS.map(o => `<option value="${o.val}">${o.label}</option>`).join('')}
+        </select>
+      </div>
+    </div>`).join('');
+
+  card.innerHTML = `
+    <div class="skill-header" onclick="toggleCard(${si})">
+      <div class="skill-num">${si+1}</div>
+      <div class="skill-name">${sk.name}</div>
+      <div class="header-badges" id="badges-${si}">
+        ${badgeHtml(null)}${badgeHtml(null)}${badgeHtml(null)}
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="skill-body">
+      <div class="dim-cols">${colsHtml}</div>
+      ${si < SKILLS.length - 1 ? `
+      <div class="card-next-wrap">
+        <button class="btn-next" id="next-btn-${si}" onclick="nextCard(${si})">
+          Next →
+        </button>
+      </div>` : ''}
     </div>`;
-  }).join("");
-  document.getElementById("card").innerHTML = `
-    <div class="skill-card">
-      <div class="skill-num">Skill ${cur+1} of ${SKILLS.length}</div>
-      <div class="skill-title">${sk.name}</div>
-      ${dimsHtml}
-    </div>`;
-  const pct = ((cur+1)/SKILLS.length)*100;
-  document.getElementById("prog").style.width = pct+"%";
-  document.getElementById("prog-txt").textContent = `Skill ${cur+1} of ${SKILLS.length}`;
-  document.getElementById("step").textContent = `${cur+1} / ${SKILLS.length}`;
-  document.getElementById("prev").disabled = cur === 0;
-  document.getElementById("next").textContent = cur===SKILLS.length-1 ? "See results →" : "Next →";
+
+  return card;
 }
 
-function pick(dim, val) { scores[cur][dim] = val; render(); }
-
-function nav(dir) {
-  if (dir===1 && cur===SKILLS.length-1) { showResults(); return; }
-  cur = Math.max(0, Math.min(SKILLS.length-1, cur+dir));
-  render();
+function toggleCard(si) {
+  document.getElementById(`card-${si}`).classList.toggle('open');
 }
 
-function shortLabel(val) {
-  if (!val) return "—";
-  return val==="not-confident" ? "Not confident" : val==="confident" ? "Confident" : "Very confident";
+function rate(si, dimKey, val) {
+  scores[si][dimKey] = val || null;
+  const sel = document.getElementById(`sel-${si}-${dimKey}`);
+  sel.className = 'dim-select ' + selectClass(val);
+  const s = scores[si];
+  document.getElementById(`badges-${si}`).innerHTML =
+    badgeHtml(s.exec) + badgeHtml(s.know) + badgeHtml(s.soft);
+  updateProgress();
 }
 
-function pillHtml(val) {
-  if (!val) return '<span style="color:#aaa;font-size:11px">—</span>';
-  const o = OPTS.find(x=>x.val===val);
-  const cls = val==='not-confident'?'pill-nc':val==='confident'?'pill-c':'pill-vc';
-  return `<span class="conf-pill ${cls}">${o.icon} ${o.label}</span>`;
+function nextCard(si) {
+  document.getElementById(`card-${si}`).classList.remove('open');
+  const next = document.getElementById(`card-${si+1}`);
+  next.classList.add('open');
+  setTimeout(() => {
+    const top = next.getBoundingClientRect().top + window.scrollY - 70;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, 60);
 }
 
-function dimScore(val) {
-  return val==="very-confident" ? 3 : val==="confident" ? 2 : val==="not-confident" ? 1 : 0;
+function countAnswered() {
+  return scores.reduce((a, s) => a + (s.exec?1:0) + (s.know?1:0) + (s.soft?1:0), 0);
 }
 
-function avgLabel(arr) {
-  const valid = arr.filter(x=>x);
-  if (!valid.length) return "—";
-  const avg = valid.reduce((a,v)=>a+dimScore(v),0)/valid.length;
-  return avg < 1.67 ? "Not confident" : avg < 2.34 ? "Confident" : "Very confident";
+function avgLabel(key) {
+  const map = { vc: 3, c: 2, nc: 1 };
+  const vals = scores.map(s => s[key]).filter(Boolean).map(v => map[v]);
+  if (!vals.length) return null;
+  const avg = vals.reduce((a,b)=>a+b,0)/vals.length;
+  if (avg >= 2.5) return 'Very confident';
+  if (avg >= 1.5) return 'Confident';
+  return 'Not confident';
 }
 
-function buildPayload(name) {
-  const ts = new Date().toLocaleString();
-  const row = { Timestamp: ts, Name: name };
-  SKILLS.forEach((sk, i) => {
-    row[`${i+1}. ${sk.name} — Execution`]   = shortLabel(scores[i].hard);
-    row[`${i+1}. ${sk.name} — Knowledge`]   = shortLabel(scores[i].know);
-    row[`${i+1}. ${sk.name} — Soft skill`]  = shortLabel(scores[i].soft);
-  });
-  row["Overall Execution"] = avgLabel(scores.map(s=>s.hard));
-  row["Overall Knowledge"] = avgLabel(scores.map(s=>s.know));
-  row["Overall Soft skill"] = avgLabel(scores.map(s=>s.soft));
-  return row;
+function updateName() {
+  const n = getName();
+  const el = document.getElementById('topbar-name');
+  if (el) el.textContent = n ? n : '';
 }
 
-function downloadExcel(name) {
-  const payload = buildPayload(name);
-  const headers = Object.keys(payload);
-  const values  = Object.values(payload);
+function updateProgress() {
+  const done = countAnswered();
+  const total = SKILLS.length * 3;
+  const pct = (done / total) * 100;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-text').textContent = `${done} of ${total} answered`;
+  const e = avgLabel('exec'), k = avgLabel('know'), s = avgLabel('soft');
+  if (done > 0) {
+    document.getElementById('summary').classList.add('visible');
+    document.getElementById('avg-exec').textContent = e ?? '—';
+    document.getElementById('avg-know').textContent = k ?? '—';
+    document.getElementById('avg-soft').textContent = s ?? '—';
+  }
+  document.getElementById('dl-btn').disabled = done < total;
+}
 
+const container = document.getElementById('skills-container');
+SKILLS.forEach((_, si) => {
+  const card = buildCard(si);
+  container.appendChild(card);
+  if (si === 0) card.classList.add('open');
+});
+
+function applyStyle(ws, cellAddr, opts = {}) {
+  if (!ws[cellAddr]) ws[cellAddr] = { t:'s', v:'' };
+  ws[cellAddr].s = {
+    font: { name: "Calibri", sz: opts.sz || 11, bold: opts.bold || false, color: { rgb: opts.fontColor || "1A1A1A" }, italic: opts.italic || false },
+    fill: opts.fill ? { patternType: "solid", fgColor: { rgb: opts.fill } } : { patternType: "none" },
+    alignment: { horizontal: opts.align || "left", vertical: opts.valign || "center", wrapText: opts.wrap !== false },
+    border: opts.border ? { top: { style:"thin", color:{ rgb:"D0D0D0" } }, bottom: { style:"thin", color:{ rgb:"D0D0D0" } }, left: { style:"thin", color:{ rgb:"D0D0D0" } }, right: { style:"thin", color:{ rgb:"D0D0D0" } } } : {},
+  };
+}
+
+function confColor(val) {
+  if (val === 'Very confident') return { fill: "D6F0E6", font: "0F6E56" };
+  if (val === 'Confident')       return { fill: "FEF3CD", font: "854F0B" };
+  if (val === 'Not confident')   return { fill: "FCEBEB", font: "A32D2D" };
+  return { fill: "FFFFFF", font: "5A5A5A" };
+}
+
+function downloadExcel() {
+  const name = getName() || "SDR";
   const wb = XLSX.utils.book_new();
-
-  // Summary sheet
-  const summaryData = [
-    ["SDR Skills Self-Assessment"],
-    ["Name:", name],
-    ["Date:", new Date().toLocaleDateString()],
-    [],
-    ["Skill Area", "Execution", "Knowledge", "Soft skill"],
-    ...SKILLS.map((sk,i) => [sk.name, shortLabel(scores[i].hard), shortLabel(scores[i].know), shortLabel(scores[i].soft)]),
-    [],
-    ["Overall average", avgLabel(scores.map(s=>s.hard)), avgLabel(scores.map(s=>s.know)), avgLabel(scores.map(s=>s.soft))]
-  ];
-  const ws1 = XLSX.utils.aoa_to_sheet(summaryData);
-  ws1['!cols'] = [{wch:38},{wch:16},{wch:16},{wch:16}];
-  XLSX.utils.book_append_sheet(wb, ws1, "Summary");
-
-  // Raw data sheet (for collector to paste into master)
-  const ws2 = XLSX.utils.aoa_to_sheet([headers, values]);
-  ws2['!cols'] = headers.map(h => ({wch: Math.max(h.length, 14)}));
-  XLSX.utils.book_append_sheet(wb, ws2, "Raw data");
-
-  XLSX.writeFile(wb, `SDR_Assessment_${name.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.xlsx`);
-}
-
-async function submitToSheet(name) {
-  if (GOOGLE_SHEET_URL === "https://script.google.com/macros/s/AKfycbz5ka4AVlQ6IyKvUlHbCPLsOlO_4P1kwBOUTZHGhYaqYOFjQGibygK8UON0tFKlhpz3Qw/execc") {
-    return { ok: false, msg: "Google Sheet not configured yet — download Excel instead." };
-  }
-  const payload = buildPayload(name);
-  try {
-    await fetch(GOOGLE_SHEET_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    });
-    return { ok: true };
-  } catch(e) {
-    return { ok: false, msg: "Could not reach Google Sheets. Please download the Excel file instead." };
-  }
-}
-
-function showResults() {
-  document.getElementById("assessment").style.display = "none";
-  const name = document.getElementById("rep-name").value.trim() || "SDR";
-
-  const focuses = [];
-  SKILLS.forEach((sk,i) => {
-    DIMS.forEach(d => {
-      if (scores[i][d.key]==="not-confident") focuses.push({ skill: sk.name, dim: d.label });
-    });
+  const aoa = [];
+  aoa.push([`SDR Skills Map — ${name}`,"","","",""]);
+  aoa.push([`Date: ${new Date().toLocaleDateString()}`,"","","",""]);
+  aoa.push(["","","","",""]);
+  aoa.push(["Skill Area","⚡ Execution","📖 Knowledge","🤝 Soft Skill","Overall"]);
+  SKILLS.forEach((sk, i) => {
+    const s = scores[i];
+    const map = { vc:3, c:2, nc:1 };
+    const vals = [s.exec, s.know, s.soft].map(v => map[v]||0);
+    const avg = vals.reduce((a,b)=>a+b,0)/3;
+    const overall = avg >= 2.5 ? 'Very confident' : avg >= 1.5 ? 'Confident' : 'Not confident';
+    aoa.push([sk.name, optLabel(s.exec), optLabel(s.know), optLabel(s.soft), overall]);
   });
-
-  const rowsHtml = scores.map((sc,i) => `
-    <div class="result-row">
-      <div class="rskill">${SKILLS[i].name}</div>
-      <div class="rdims">${pillHtml(sc.hard)}${pillHtml(sc.know)}${pillHtml(sc.soft)}</div>
-    </div>`).join("");
-
-  const focusHtml = focuses.length===0
-    ? `<div class="result-row" style="color:#3B6D11;background:#EFF7E6;border-color:#9FE1CB80">✅ No "Not confident" areas — excellent self-assessment!</div>`
-    : focuses.map(f=>`<div class="focus-card"><strong>${f.skill}</strong> <span>· ${f.dim}</span></div>`).join("");
-
-  document.getElementById("results").style.display = "block";
-  document.getElementById("results").innerHTML = `
-    <div class="result-hero">
-      <h2>Assessment complete, ${name}! 🎉</h2>
-      <p>Here's a summary across all 10 skill areas. Submit your results below.</p>
-    </div>
-    <div class="results-grid">
-      <div class="result-metric hard"><div class="rlabel">⚡ Execution</div><div class="rval">${avgLabel(scores.map(s=>s.hard))}</div></div>
-      <div class="result-metric know"><div class="rlabel">📖 Knowledge</div><div class="rval">${avgLabel(scores.map(s=>s.know))}</div></div>
-      <div class="result-metric soft"><div class="rlabel">🤝 Soft skills</div><div class="rval">${avgLabel(scores.map(s=>s.soft))}</div></div>
-    </div>
-    <div class="section-head">All skill areas</div>
-    <div style="font-size:11px;color:#888;margin-bottom:8px">⚡ Execution &nbsp;·&nbsp; 📖 Knowledge &nbsp;·&nbsp; 🤝 Soft skill</div>
-    ${rowsHtml}
-    <div class="section-head">Focus areas (not confident)</div>
-    ${focusHtml}
-    <div class="action-row">
-      <button class="btn-submit" id="submit-btn" onclick="handleSubmit()">📤 Submit results to manager</button>
-      <div class="submit-status" id="submit-status"></div>
-      <p class="submit-note">Your results are sent directly to a shared spreadsheet your manager can review.</p>
-      <button class="btn-excel" onclick="downloadExcel('${name.replace(/'/g,"\\'")}')">⬇️ Also download as Excel</button>
-      <button class="btn-restart" onclick="location.reload()">↺ Start over</button>
-    </div>`;
-}
-
-async function handleSubmit() {
-  const name = document.getElementById("rep-name").value.trim() || "SDR";
-  const btn = document.getElementById("submit-btn");
-  const status = document.getElementById("submit-status");
-  btn.disabled = true;
-  btn.textContent = "Submitting…";
-  status.style.display = "none";
-  const result = await submitToSheet(name);
-  status.style.display = "block";
-  if (result.ok) {
-    status.className = "submit-status success";
-    status.textContent = "✅ Results submitted successfully! Your manager will receive them shortly.";
-    btn.textContent = "✓ Submitted";
-  } else {
-    status.className = "submit-status error";
-    status.textContent = result.msg || "Something went wrong. Please download the Excel file.";
-    btn.disabled = false;
-    btn.textContent = "📤 Try again";
+  aoa.push(["","","","",""]);
+  aoa.push(["Overall Average", avgLabel('exec'), avgLabel('know'), avgLabel('soft'), ""]);
+  const ws = XLSX.utils.aoa_to_sheet(aoa);
+  ws['!cols'] = [{wch:38},{wch:18},{wch:18},{wch:18},{wch:18}];
+  ws['!rows'] = [{hpt:30},{hpt:18},{hpt:8},{hpt:22}];
+  ws['!merges'] = [{s:{r:0,c:0}, e:{r:0,c:4}},{s:{r:1,c:0}, e:{r:1,c:4}}];
+  applyStyle(ws, 'A1', { sz:16, bold:true, fill:"1B3A5C", fontColor:"FFFFFF", align:"center", border:false });
+  applyStyle(ws, 'A2', { sz:11, fill:"E8EFF6", fontColor:"5A6B7A", align:"center", border:false });
+  ['A4','B4','C4','D4','E4'].forEach(addr => {
+    applyStyle(ws, addr, { sz:12, bold:true, fill:"1D9E75", fontColor:"FFFFFF", align:"center", border:true });
+  });
+  for (let i = 0; i < SKILLS.length; i++) {
+    const row = i + 5;
+    const rowBg = i % 2 === 0 ? "FFFFFF" : "F7F7F7";
+    applyStyle(ws, `A${row}`, { sz:11, bold:true, fill:rowBg, fontColor:"1B3A5C", border:true });
+    ['B','C','D'].forEach(col => {
+      const addr = `${col}${row}`;
+      const val = ws[addr] ? ws[addr].v : '';
+      const cc = confColor(val);
+      applyStyle(ws, addr, { sz:11, fill:cc.fill, fontColor:cc.font, align:"center", border:true, bold:true });
+    });
+    const ov = ws[`E${row}`] ? ws[`E${row}`].v : '';
+    const cc = confColor(ov);
+    applyStyle(ws, `E${row}`, { sz:11, fill:cc.fill, fontColor:cc.font, align:"center", bold:true, border:true });
   }
+  const ovRow = SKILLS.length + 6;
+  applyStyle(ws, `A${ovRow}`, { sz:12, bold:true, fill:"1B3A5C", fontColor:"FFFFFF", border:true });
+  ['B','C','D','E'].forEach(col => {
+    const addr = `${col}${ovRow}`;
+    const val = ws[addr] ? ws[addr].v : '';
+    const cc = confColor(val);
+    applyStyle(ws, addr, { sz:12, bold:true, fill:cc.fill || "E8EFF6", fontColor:cc.font || "1B3A5C", align:"center", border:true });
+  });
+  XLSX.utils.book_append_sheet(wb, ws, "Summary");
+  const payload = { Timestamp: new Date().toLocaleString(), Name: name };
+  SKILLS.forEach((sk, i) => {
+    payload[`${i+1}. ${sk.name} — Execution`]  = optLabel(scores[i].exec);
+    payload[`${i+1}. ${sk.name} — Knowledge`]  = optLabel(scores[i].know);
+    payload[`${i+1}. ${sk.name} — Soft Skill`] = optLabel(scores[i].soft);
+  });
+  payload["Overall Execution"]  = avgLabel('exec');
+  payload["Overall Knowledge"]  = avgLabel('know');
+  payload["Overall Soft Skill"] = avgLabel('soft');
+  const ws2 = XLSX.utils.aoa_to_sheet([Object.keys(payload), Object.values(payload)]);
+  ws2['!cols'] = Object.keys(payload).map(h => ({wch: Math.max(h.length+2,16)}));
+  Object.keys(payload).forEach((_, ci) => {
+    const addr = XLSX.utils.encode_cell({r:0, c:ci});
+    applyStyle(ws2, addr, { sz:10, bold:true, fill:"132C47", fontColor:"FFFFFF", align:"center", border:true });
+  });
+  Object.values(payload).forEach((v, ci) => {
+    const addr = XLSX.utils.encode_cell({r:1, c:ci});
+    if (typeof v === 'string' && ['Very confident','Confident','Not confident'].includes(v)) {
+      const cc = confColor(v);
+      applyStyle(ws2, addr, { sz:10, fill:cc.fill, fontColor:cc.font, align:"center", bold:true, border:true });
+    } else {
+      applyStyle(ws2, addr, { sz:10, fill:"F7F7F7", border:true, align:"center" });
+    }
+  });
+  XLSX.utils.book_append_sheet(wb, ws2, "Raw Data");
+  XLSX.writeFile(wb, `SDR_Assessment_${name.replace(/\s+/g,'_')}_${new Date().toISOString().slice(0,10)}.xlsx`, { cellStyles: true });
+  const lines = [`SDR Skills Map — ${name}`, `Date: ${new Date().toLocaleDateString()}`, ""];
+  SKILLS.forEach((sk, i) => {
+    const s = scores[i];
+    lines.push(`${sk.name} | Exec: ${optLabel(s.exec)} | Know: ${optLabel(s.know)} | Soft: ${optLabel(s.soft)}`);
+  });
+  lines.push("", `Overall — Execution: ${avgLabel('exec')} · Knowledge: ${avgLabel('know')} · Soft Skill: ${avgLabel('soft')}`);
+  navigator.clipboard.writeText(lines.join('\n')).then(() => {
+    const n = document.getElementById('copy-notice');
+    n.classList.add('show');
+    setTimeout(() => n.classList.remove('show'), 4000);
+  }).catch(() => {});
 }
-
-render();
 </script>
-
-
-</body></html>
+</body>
+</html>
