@@ -360,7 +360,7 @@ function downloadExcel(name) {
 }
 
 async function submitToSheet(name) {
-  if (GOOGLE_SHEET_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+  if (GOOGLE_SHEET_URL === "https://script.google.com/macros/s/AKfycbz5ka4AVlQ6IyKvUlHbCPLsOlO_4P1kwBOUTZHGhYaqYOFjQGibygK8UON0tFKlhpz3Qw/execc") {
     return { ok: false, msg: "Google Sheet not configured yet — download Excel instead." };
   }
   const payload = buildPayload(name);
